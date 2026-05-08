@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { Plus, Trash2, Save, GripVertical, Settings as SettingsIcon, ChevronRight } from 'lucide-react';
+import API_BASE_URL from '../api';
 
 
 const NestedOptionBuilder = ({ options, onChange, depth = 0 }) => {
@@ -78,7 +78,7 @@ const Settings = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/fields')
+        fetch(`${API_BASE_URL}/api/fields`)
             .then(res => res.json())
             .then(data => {
                 setFields(data);
@@ -155,7 +155,7 @@ const Settings = () => {
         });
 
         try {
-            const response = await fetch('http://localhost:5000/api/fields/sync', {
+            const response = await fetch(`${API_BASE_URL}/api/fields/sync`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatedFields)

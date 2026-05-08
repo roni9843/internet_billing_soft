@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
 import { Search, Filter, Plus, MoreVertical, Download } from 'lucide-react';
+import API_BASE_URL from '../api';
 
 const Bills = () => {
     const [bills, setBills] = useState([]);
 
     useEffect(() => {
         // Fetch from API
-        fetch('http://localhost:5000/api/bills')
+        fetch(`${API_BASE_URL}/api/bills`)
             .then(res => res.json())
             .then(data => setBills(data))
             .catch(err => console.error(err));

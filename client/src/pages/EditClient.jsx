@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { UserCheck, Save, ArrowLeft, ChevronRight } from 'lucide-react';
+import API_BASE_URL from '../api';
 
 const CascadingDropdowns = ({ options, value, onChange, label }) => {
     const selections = typeof value === 'string' ? value.split(' > ') : [];
@@ -51,8 +51,8 @@ const EditClient = () => {
 
     useEffect(() => {
         Promise.all([
-            fetch('http://localhost:5000/api/fields').then(res => res.json()),
-            fetch(`http://localhost:5000/api/clients`).then(res => res.json())
+            fetch(`${API_BASE_URL}/api/fields`).then(res => res.json()),
+            fetch(`${API_BASE_URL}/api/clients`).then(res => res.json())
         ]).then(([fieldsData, clientsData]) => {
             setFieldConfigs(fieldsData);
             const client = clientsData.find(c => c._id === id);
@@ -73,7 +73,7 @@ const EditClient = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:5000/api/clients/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/clients/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

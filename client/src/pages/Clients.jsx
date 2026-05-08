@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { Users, UserPlus, Search, Trash2, MoreHorizontal } from 'lucide-react';
+import API_BASE_URL from '../api';
 
 import { Link } from 'react-router-dom';
 
@@ -10,8 +10,8 @@ const Clients = () => {
 
     useEffect(() => {
         Promise.all([
-            fetch('http://localhost:5000/api/clients').then(res => res.json()),
-            fetch('http://localhost:5000/api/fields').then(res => res.json())
+            fetch(`${API_BASE_URL}/api/clients`).then(res => res.json()),
+            fetch(`${API_BASE_URL}/api/fields`).then(res => res.json())
         ]).then(([clientsData, fieldsData]) => {
             setClients(clientsData);
             setFieldConfigs(fieldsData);
@@ -22,7 +22,7 @@ const Clients = () => {
     const deleteClient = async (id) => {
         if (window.confirm('Are you sure you want to delete this client? This action cannot be undone.')) {
             try {
-                const response = await fetch(`http://localhost:5000/api/clients/${id}`, {
+                const response = await fetch(`${API_BASE_URL}/api/clients/${id}`, {
                     method: 'DELETE'
                 });
                 if (response.ok) {

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
 import { UserPlus, Save, ArrowLeft, ChevronRight } from 'lucide-react';
+import API_BASE_URL from '../api';
 
 
 const CascadingDropdowns = ({ options, value, onChange, label }) => {
@@ -56,7 +56,7 @@ const AddClient = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/fields')
+        fetch(`${API_BASE_URL}/api/fields`)
             .then(res => res.json())
             .then(data => {
                 setFieldConfigs(data);
@@ -76,7 +76,7 @@ const AddClient = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/api/clients', {
+            const response = await fetch(`${API_BASE_URL}/api/clients`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
