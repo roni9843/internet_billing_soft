@@ -18,9 +18,20 @@ app.use(cors({
 app.use(express.json());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('✅ Connected to MongoDB'))
-    .catch((err) => console.error('❌ MongoDB Connection Error:', err));
+if (!process.env.MONGODB_URI) {
+  console.error('❌ MONGODB_URI is not defined in environment variables');
+}
+
+mongoose.connect(process.env.MONGODB_URI, {
+    serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds instead of 10
+})
+.then(() => console.log('✅ Connected to MongoDB'))
+.catch((err) => {
+    console.error('❌ MongoDB Connection Error:', err.message);
+});
+
+// Disable buffering to prevent long hangs if connection fails
+mongoose.set('bufferCommands', false);
 
 // Routes
 app.use('/api/bills', require('./routes/billRoutes'));
