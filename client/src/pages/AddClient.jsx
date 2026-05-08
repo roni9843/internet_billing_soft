@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserPlus, Save, ArrowLeft, ChevronRight } from 'lucide-react';
 import API_BASE_URL from '../api';
 
@@ -47,7 +49,7 @@ const CascadingDropdowns = ({ options, value, onChange, label }) => {
     return renderDropdowns(options);
 };
 
-import { useNavigate } from 'react-router-dom';
+
 
 const AddClient = () => {
     const [fieldConfigs, setFieldConfigs] = useState([]);

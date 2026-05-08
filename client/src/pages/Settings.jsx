@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { Plus, Trash2, Save, GripVertical, Settings as SettingsIcon, ChevronRight } from 'lucide-react';
 import API_BASE_URL from '../api';
 
